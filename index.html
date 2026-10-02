@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Top 5 Digital Tools of 2026 | Futuristic Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#080B10',
+                            card: '#0D1117',
+                            border: '#1E293B',
+                            cyan: '#00E5FF',
+                            magenta: '#FF007F',
+                            purple: '#A855F7',
+                            gold: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            cursor: none !important;
+            user-select: none;
+        }
+
+        @media (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+            #cyber-cursor, #cursor-canvas {
+                display: none !important;
+            }
+        }
+
+        body {
+            background-color: #080B10;
+            color: #F8FAFC;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Ambient Micro-Grid Texture */
+        .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Carbon Texture Pattern */
+        .carbon-pattern {
+            background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+                        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+                        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+                        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px;
+            background-color: #0d1117;
+            background-size: 20px 20px;
+        }
+
+        /* 3D Glassmorphic Tilt Card */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(0,229,255,0.4), rgba(255,0,127,0.1), rgba(168,85,247,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .tilt-card-content {
+            transform: translateZ(30px);
+        }
+
+        /* Neon Glow Utility */
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
+        }
+        .glow-magenta {
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.25);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+        }
+
+        /* Page Transition Animations */
+        .page-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96) translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Custom Scrollbar for inner card content */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 229, 255, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 229, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="cyber-grid text-slate-100 flex flex-col justify-between relative select-none">
+
+    <!-- Background Particle Canvas -->
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- Global Custom Cyber Target Cursor Canvas -->
+    <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+    <!-- TOP HEADER / NAV BAR -->
+    <header class="relative z-30 flex items-center justify-between px-6 py-4 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-md">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="goToPage(1)">
+            <div class="w-9 h-9 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan font-orbitron font-bold shadow-lg shadow-cyber-cyan/20">
+                26
+            </div>
+            <div>
+                <h1 class="font-orbitron text-sm md:text-base font-bold tracking-wider text-slate-100 flex items-center gap-2">
+                    NEXUS<span class="text-cyber-cyan">2026</span>
+                    <span class="px-2 py-0.5 text-[10px] font-mono bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 rounded">STACK v2.6</span>
+                </h1>
+                <p class="text-[10px] text-slate-400 font-mono tracking-tight hidden sm:block">CURATED TOP 5 DIGITAL TOOLS & AGENTIC ARCHITECTURE</p>
+            </div>
+        </div>
+
+        <!-- Slide Selector Dropdown & Quick Nav -->
+        <div class="flex items-center space-x-2 md:space-x-4">
+            <nav class="hidden lg:flex items-center space-x-1 text-xs font-mono">
+                <button onclick="goToPage(1)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="1">01. HERO</button>
+                <button onclick="goToPage(2)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="2">02. CHATGPT</button>
+                <button onclick="goToPage(3)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="3">03. ZAPIER</button>
+                <button onclick="goToPage(4)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="4">04. PERPLEXITY</button>
+                <button onclick="goToPage(5)" class="nav-btn px-2 py-1 rounded bg-cyber-magenta/20 text-cyber-magenta border border-cyber-magenta/40 hover:bg-cyber-magenta/30 transition flex items-center gap-1 font-bold shadow-sm shadow-cyber-magenta/30" data-page="5">
+                    <i class="fa-solid fa-bolt text-[10px] animate-pulse"></i> 05. CORE NEURAL
+                </button>
+                <button onclick="goToPage(6)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="6">06. NOTION</button>
+                <button onclick="goToPage(7)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="7">07. CANVA</button>
+                <button onclick="goToPage(8)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="8">08. MATRIX</button>
+                <button onclick="goToPage(9)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="9">09. REDIRECTS</button>
+                <button onclick="goToPage(10)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="10">10. STACK</button>
+            </nav>
+
+            <!-- Sound Toggle Button -->
+            <button id="sound-btn" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition text-xs flex items-center gap-2" title="Toggle Cyber Audio Feedback">
+                <i class="fa-solid fa-volume-xmark" id="sound-icon"></i>
+                <span class="font-mono text-[11px] hidden sm:inline">AUDIO: OFF</span>
+            </button>
+
+            <!-- Page Indicator Dropdown Mobile -->
+            <div class="relative lg:hidden">
+                <select id="mobile-page-select" onchange="goToPage(parseInt(this.value))" class="bg-slate-900 border border-slate-700 text-cyber-cyan font-mono text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-cyber-cyan">
+                    <option value="1">01. HERO COVER</option>
+                    <option value="2">02. CHATGPT (OPENAI)</option>
+                    <option value="3">03. ZAPIER (AI AGENTS)</option>
+                    <option value="4">04. PERPLEXITY AI</option>
+                    <option value="5">05. ★ SICK NEURAL CORE ★</option>
+                    <option value="6">06. NOTION AI OS</option>
+                    <option value="7">07. CANVA MAGIC STUDIO</option>
+                    <option value="8">08. TECH MATRIX</option>
+                    <option value="9">09. REDIRECT HUB</option>
+                    <option value="10">10. STACK ARCHITECTURE</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN SLIDER PAGES CONTAINER -->
+    <main class="relative flex-1 overflow-hidden z-20 flex items-center justify-center p-4 md:p-8">
+
+        <!-- ================= PAGE 1: HERO COVER ================= -->
+        <section id="page-1" class="page-slide active w-full max-w-6xl mx-auto h-full flex flex-col justify-center items-center text-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan text-xs font-mono mb-6 tracking-wide shadow-lg shadow-cyber-cyan/10">
+                <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-ping"></span>
+                CYBERNETIC TECH REPORT • EDITION 2026
+            </div>
+            
+            <h1 class="font-orbitron text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-cyber-cyan drop-shadow-sm">
+                MY TOP 5 DIGITAL<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta">TOOLS OF 2026</span>
+            </h1>
+
+            <p class="max-w-2xl text-slate-400 text-sm md:text-base font-light mb-8 leading-relaxed">
+                An interactive architectural deep dive into the five powerhouse autonomous AI platforms, research engines, and automation frameworks defining modern productivity and creative output.
+            </p>
+
+            <!-- Interactive 3D Feature Preview Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 w-full max-w-4xl mb-10">
+                <div onclick="goToPage(2)" class="tilt-card carbon-pattern p-3 rounded-xl border border-slate-800 hover:border-cyber-cyan/50 transition text-center cursor-pointer group">
+                    <div class="tilt-card-content">
+                        <i class="fa-solid fa-brain text-cyber-cyan text-2xl mb-2 group-hover:scale-110 transition"></i>
+                        <div class="font-orbitron text-xs font-bold text-slate-200">ChatGPT</div>
+                        <div class="text-[10px] text-slate-500 font-mono">Reasoning & Code</div>
+                    </div>
+                </div>
+
+                <div onclick="goToPage(3)" class="tilt-card carbon-pattern p-3 rounded-xl border border-slate-800 hover:border-cyber-purple/50 transition text-center cursor-pointer group">
+                    <div class="tilt-card-content">
+                        <i class="fa-solid fa-diagram-project text-cyber-purple text-2xl mb-2 group-hover:scale-110 transition"></i>
+                        <div class="font-orbitron text-xs font-bold text-slate-200">Zapier</div>
+                        <div class="text-[10px] text-slate-500 font-mono">AI Automations</div>
+                    </div>
+                </div>
+
+                <div onclick="goToPage(4)" class="tilt-card carbon-pattern p-3 rounded-xl border border-slate-800 hover:border-cyber-magenta/50 transition text-center cursor-pointer group">
+                    <div class="tilt-card-content">
+                        <i class="fa-solid fa-magnifying-glass-chart text-cyber-magenta text-2xl mb-2 group-hover:scale-110 transition"></i>
+                        <div class="font-orbitron text-xs font-bold text-slate-200">Perplexity</div>
+                        <div class="text-[10px] text-slate-500 font-mono">Live Research</div>
+                    </div>
+                </div>
+
+                <div onclick="goToPage(6)" class="tilt-card carbon-pattern p-3 rounded-xl border border-slate-800 hover:border-cyber-gold/50 transition text-center cursor-pointer group">
+                    <div class="tilt-card-content">
+                        <i class="fa-solid fa-layer-group text-cyber-gold text-2xl mb-2 group-hover:scale-110 transition"></i>
+                        <div class="font-orbitron text-xs font-bold text-slate-200">Notion AI</div>
+                        <div class="text-[10px] text-slate-500 font-mono">Knowledge OS</div>
+                    </div>
+                </div>
+
+                <div onclick="goToPage(7)" class="tilt-card carbon-pattern p-3 rounded-xl border border-slate-800 hover:border-cyan-400/50 transition text-center cursor-pointer group col-span-2 sm:col-span-1">
+                    <div class="tilt-card-content">
+                        <i class="fa-solid fa-wand-magic-sparkles text-cyan-400 text-2xl mb-2 group-hover:scale-110 transition"></i>
+                        <div class="font-orbitron text-xs font-bold text-slate-200">Canva</div>
+                        <div class="text-[10px] text-slate-500 font-mono">Generative Design</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="goToPage(2)" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-blue-600 text-slate-950 font-orbitron font-bold text-xs md:text-sm tracking-wider uppercase hover:brightness-110 transition shadow-lg shadow-cyber-cyan/30 flex items-center gap-2">
+                    EXPLORE STACK <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button onclick="goToPage(5)" class="px-6 py-3.5 rounded-xl bg-slate-900 border border-cyber-magenta/50 text-cyber-magenta font-orbitron font-bold text-xs md:text-sm tracking-wider uppercase hover:bg-cyber-magenta/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-atom"></i> LAUNCH ANIMATION
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: CHATGPT ================= -->
+        <section id="page-2" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Left Details -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan">
+                        <span class="px-2 py-0.5 rounded bg-cyber-cyan/10 border border-cyber-cyan/30">TOOL 01 / 05</span>
+                        <span>PRIMARY AGENTIC INTELLIGENCE</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100">
+                        ChatGPT <span class="text-cyber-cyan">(OpenAI)</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        The bedrock conversational and execution engine for modern digital workflows. In 2026, ChatGPT serves as an autonomous co-pilot with multimodal reasoning, direct code sandbox execution, and deep agent integration.
+                    </p>
+
+                    <!-- Key Capabilities Grid -->
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-code text-cyber-cyan mb-1"></i>
+                            <div class="font-bold text-slate-200">Advanced Code Sandbox</div>
+                            <div class="text-[11px] text-slate-400">Executes real-time data analysis & Python scripts.</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-microchip text-cyber-cyan mb-1"></i>
+                            <div class="font-bold text-slate-200">GPT-4o / O3 Reasoning</div>
+                            <div class="text-[11px] text-slate-400">Ultra-low latency complex logic & step planning.</div>
+                        </div>
+                    </div>
+
+                    <!-- 5 External Redirect Links -->
+                    <div class="pt-2">
+                        <div class="text-xs font-mono text-slate-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyber-cyan"></i> VERIFIED DIRECT REDIRECTS (5):
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <a href="https://chatgpt.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition flex items-center gap-1.5">
+                                Launch App <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://chatgpt.com/gpts" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition flex items-center gap-1.5">
+                                GPT Store <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://platform.openai.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition flex items-center gap-1.5">
+                                Developer API <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://help.openai.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition flex items-center gap-1.5">
+                                Help Center <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://openai.com/chatgpt/pricing" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition flex items-center gap-1.5">
+                                Pricing <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right 3D Interactive Demo Card -->
+                <div class="lg:col-span-5">
+                    <div class="tilt-card carbon-pattern p-6 rounded-2xl border border-cyber-cyan/30 glow-cyan">
+                        <div class="tilt-card-content space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                                <span class="font-orbitron font-bold text-slate-200 flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span> CHATGPT LIVE DEMO
+                                </span>
+                                <span class="text-[10px] font-mono text-cyber-cyan">PROMPT SIMULATOR</span>
+                            </div>
+
+                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-300 space-y-2">
+                                <div class="text-cyber-cyan">&gt; User: "Generate an automated pipeline for high-scale API data."</div>
+                                <div class="text-slate-400 pl-3 border-l-2 border-cyber-cyan/50 text-[11px] leading-relaxed">
+                                    "Analyzing workflow... Initializing python async batch processing queue with fallback webhooks..."
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 pt-2">
+                                <div class="flex justify-between text-xs font-mono text-slate-400">
+                                    <span>Reasoning Index</span>
+                                    <span class="text-cyber-cyan">99.8%</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="w-[99%] h-full bg-gradient-to-r from-cyber-cyan to-blue-500"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: ZAPIER ================= -->
+        <section id="page-3" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-purple">
+                        <span class="px-2 py-0.5 rounded bg-cyber-purple/10 border border-cyber-purple/30">TOOL 02 / 05</span>
+                        <span>AUTONOMOUS WORKFLOW ORCHESTRATION</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100">
+                        Zapier <span class="text-cyber-purple">Central</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Zapier connects over 7,000+ software platforms into unified self-healing automated neural pipelines. In 2026, AI Teammates execute tasks in background tasks without user intervention.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-robot text-cyber-purple mb-1"></i>
+                            <div class="font-bold text-slate-200">AI Teammates</div>
+                            <div class="text-[11px] text-slate-400">Autonomous background agents assigned to distinct apps.</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-database text-cyber-purple mb-1"></i>
+                            <div class="font-bold text-slate-200">Zapier Tables</div>
+                            <div class="text-[11px] text-slate-400">Real-time automation-first cloud relational database.</div>
+                        </div>
+                    </div>
+
+                    <!-- 5 External Redirect Links -->
+                    <div class="pt-2">
+                        <div class="text-xs font-mono text-slate-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyber-purple"></i> VERIFIED DIRECT REDIRECTS (5):
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <a href="https://zapier.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-purple text-slate-300 hover:text-cyber-purple transition flex items-center gap-1.5">
+                                Launch App <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://zapier.com/apps" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-purple text-slate-300 hover:text-cyber-purple transition flex items-center gap-1.5">
+                                App Directory <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://zapier.com/ai" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-purple text-slate-300 hover:text-cyber-purple transition flex items-center gap-1.5">
+                                Zapier AI <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://zapier.com/templates" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-purple text-slate-300 hover:text-cyber-purple transition flex items-center gap-1.5">
+                                Templates <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://zapier.com/pricing" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-purple text-slate-300 hover:text-cyber-purple transition flex items-center gap-1.5">
+                                Pricing <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="tilt-card carbon-pattern p-6 rounded-2xl border border-cyber-purple/30 glow-purple">
+                        <div class="tilt-card-content space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                                <span class="font-orbitron font-bold text-slate-200">NODE PIPELINE</span>
+                                <span class="text-[10px] font-mono text-cyber-purple">7,000+ INTEGRATIONS</span>
+                            </div>
+
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="p-2.5 rounded bg-slate-950 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300"><i class="fa-solid fa-bolt text-cyber-purple mr-2"></i>Trigger: New Webhook</span>
+                                    <span class="text-[10px] text-emerald-400">ACTIVE</span>
+                                </div>
+                                <div class="w-0.5 h-4 bg-cyber-purple/50 mx-auto"></div>
+                                <div class="p-2.5 rounded bg-slate-950 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300"><i class="fa-solid fa-brain text-cyber-cyan mr-2"></i>Action: AI Filtering</span>
+                                    <span class="text-[10px] text-emerald-400">PASSED</span>
+                                </div>
+                                <div class="w-0.5 h-4 bg-cyber-purple/50 mx-auto"></div>
+                                <div class="p-2.5 rounded bg-slate-950 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300"><i class="fa-solid fa-paper-plane text-cyber-magenta mr-2"></i>Dispatch: Multi-App Sync</span>
+                                    <span class="text-[10px] text-cyber-purple">EXECUTE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: PERPLEXITY AI ================= -->
+        <section id="page-4" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-magenta">
+                        <span class="px-2 py-0.5 rounded bg-cyber-magenta/10 border border-cyber-magenta/30">TOOL 03 / 05</span>
+                        <span>LIVE SEARCH & CITATION MATRIX</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100">
+                        Perplexity <span class="text-cyber-magenta">AI</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Replacing static search engines with real-time web indexation and verified citation mapping. Perplexity synthesizes live market intelligence and academic papers into concise executive briefs.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-quote-right text-cyber-magenta mb-1"></i>
+                            <div class="font-bold text-slate-200">Pro Deep Search</div>
+                            <div class="text-[11px] text-slate-400">Multi-step deep web crawler with cited sources.</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-folder-tree text-cyber-magenta mb-1"></i>
+                            <div class="font-bold text-slate-200">Collections OS</div>
+                            <div class="text-[11px] text-slate-400">Organized knowledge bases with live dynamic feeds.</div>
+                        </div>
+                    </div>
+
+                    <!-- 5 External Redirect Links -->
+                    <div class="pt-2">
+                        <div class="text-xs font-mono text-slate-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyber-magenta"></i> VERIFIED DIRECT REDIRECTS (5):
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <a href="https://perplexity.ai" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-magenta text-slate-300 hover:text-cyber-magenta transition flex items-center gap-1.5">
+                                Search Engine <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://perplexity.ai/pro" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-magenta text-slate-300 hover:text-cyber-magenta transition flex items-center gap-1.5">
+                                Perplexity Pro <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://perplexity.ai/api" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-magenta text-slate-300 hover:text-cyber-magenta transition flex items-center gap-1.5">
+                                Search API <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://perplexity.ai/discover" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-magenta text-slate-300 hover:text-cyber-magenta transition flex items-center gap-1.5">
+                                Discover Feed <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://perplexity.ai/hub" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-magenta text-slate-300 hover:text-cyber-magenta transition flex items-center gap-1.5">
+                                Help Hub <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="tilt-card carbon-pattern p-6 rounded-2xl border border-cyber-magenta/30 glow-magenta">
+                        <div class="tilt-card-content space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                                <span class="font-orbitron font-bold text-slate-200">LIVE CITATION GRAPH</span>
+                                <span class="text-[10px] font-mono text-cyber-magenta">VERIFIED SOURCES</span>
+                            </div>
+
+                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-2">
+                                <div class="text-slate-300 font-mono">Query: "2026 AI Agent Deployment Rates"</div>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <span class="px-2 py-0.5 rounded bg-cyber-magenta/20 text-cyber-magenta text-[10px] border border-cyber-magenta/30">[1] ArXiv 2026</span>
+                                    <span class="px-2 py-0.5 rounded bg-cyber-cyan/20 text-cyber-cyan text-[10px] border border-cyber-cyan/30">[2] TechCrunch</span>
+                                    <span class="px-2 py-0.5 rounded bg-cyber-purple/20 text-cyber-purple text-[10px] border border-cyber-purple/30">[3] MIT Review</span>
+                                </div>
+                            </div>
+
+                            <div class="text-[11px] text-slate-400 font-light italic">
+                                "Enterprise agent implementation expanded by 340% YoY with high precision verification..."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5: SICK COOL ANIMATION / NEURAL CORE ================= -->
+        <section id="page-5" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan">
+                        <span class="px-2 py-0.5 rounded bg-cyber-cyan/20 border border-cyber-cyan/50 text-cyber-cyan font-bold">MIDDLE CORE EXPERIMENTAL</span>
+                        <span>THE 2026 CYBER NEURAL CORE</span>
+                    </div>
+                    <h2 class="font-orbitron text-xl sm:text-2xl font-extrabold text-slate-100 mt-1">
+                        CENTRAL TOOL INTEGRATION HUB
+                    </h2>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="changeCoreSpeed()" class="px-3 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-xs font-mono text-slate-300">
+                        SPEED: <span id="speed-label" class="text-cyber-cyan">1.0x</span>
+                    </button>
+                    <button onclick="triggerCorePulse()" class="px-3 py-1 rounded bg-cyber-cyan/20 border border-cyber-cyan/50 text-xs font-mono text-cyber-cyan font-bold hover:bg-cyber-cyan/30">
+                        <i class="fa-solid fa-bolt mr-1"></i> PULSE BLAST
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas Middle Interactive Visual Animation Container -->
+            <div class="relative flex-1 w-full rounded-2xl border border-cyber-cyan/40 bg-slate-950/90 overflow-hidden shadow-2xl shadow-cyber-cyan/10 flex items-center justify-center">
+                <canvas id="core-canvas" class="absolute inset-0 w-full h-full cursor-crosshair"></canvas>
+
+                <!-- Overlay Telemetry Stats -->
+                <div class="absolute top-4 left-4 pointer-events-none font-mono text-[10px] space-y-1 text-slate-400 bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 backdrop-blur">
+                    <div class="text-cyber-cyan font-bold">CORE TELEMETRY</div>
+                    <div>FPS: <span id="fps-counter" class="text-slate-200">60</span></div>
+                    <div>ACTIVE NODES: <span class="text-slate-200">5 MAIN + 80 PARTICLES</span></div>
+                    <div>INTERACTION: <span class="text-emerald-400">MOUSE MAGNET ON</span></div>
+                </div>
+
+                <div class="absolute bottom-4 right-4 pointer-events-none font-mono text-[10px] text-slate-400 bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 backdrop-blur text-right">
+                    <div class="text-cyber-magenta font-bold">SYNC PROTOCOL</div>
+                    <div class="text-slate-300">INTER-TOOL NEURAL LASER LINKS</div>
+                    <div class="text-slate-500">HOVER NODES TO LOCK FOCUS</div>
+                </div>
+            </div>
+
+            <!-- Bottom Tool Badges -->
+            <div class="grid grid-cols-5 gap-2 mt-3 font-mono text-[11px] text-center">
+                <div class="p-1.5 rounded bg-slate-900 border border-cyber-cyan/40 text-cyber-cyan">1. ChatGPT</div>
+                <div class="p-1.5 rounded bg-slate-900 border border-cyber-purple/40 text-cyber-purple">2. Zapier</div>
+                <div class="p-1.5 rounded bg-slate-900 border border-cyber-magenta/40 text-cyber-magenta">3. Perplexity</div>
+                <div class="p-1.5 rounded bg-slate-900 border border-cyber-gold/40 text-cyber-gold">4. Notion AI</div>
+                <div class="p-1.5 rounded bg-slate-900 border border-cyan-400/40 text-cyan-400">5. Canva</div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 6: NOTION AI ================= -->
+        <section id="page-6" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-gold">
+                        <span class="px-2 py-0.5 rounded bg-cyber-gold/10 border border-cyber-gold/30">TOOL 04 / 05</span>
+                        <span>CONNECTED KNOWLEDGE OS</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100">
+                        Notion <span class="text-cyber-gold">AI OS</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        The ultimate connected workspace that turns company documents, project roadmaps, and wikis into an instantly queryable team memory layer with automated summaries.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-database text-cyber-gold mb-1"></i>
+                            <div class="font-bold text-slate-200">Global Q&amp;A</div>
+                            <div class="text-[11px] text-slate-400">Query across Slack, Google Drive, and Notion docs.</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-table text-cyber-gold mb-1"></i>
+                            <div class="font-bold text-slate-200">Auto-Database autofill</div>
+                            <div class="text-[11px] text-slate-400">AI automatically populates database fields.</div>
+                        </div>
+                    </div>
+
+                    <!-- 5 External Redirect Links -->
+                    <div class="pt-2">
+                        <div class="text-xs font-mono text-slate-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyber-gold"></i> VERIFIED DIRECT REDIRECTS (5):
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <a href="https://notion.so" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-gold text-slate-300 hover:text-cyber-gold transition flex items-center gap-1.5">
+                                Launch Notion <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://notion.so/product/ai" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-gold text-slate-300 hover:text-cyber-gold transition flex items-center gap-1.5">
+                                Notion AI <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://notion.so/templates" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-gold text-slate-300 hover:text-cyber-gold transition flex items-center gap-1.5">
+                                Templates <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://notion.so/help" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-gold text-slate-300 hover:text-cyber-gold transition flex items-center gap-1.5">
+                                Help &amp; Guides <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://notion.so/pricing" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-gold text-slate-300 hover:text-cyber-gold transition flex items-center gap-1.5">
+                                Pricing <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="tilt-card carbon-pattern p-6 rounded-2xl border border-cyber-gold/30 glow-gold">
+                        <div class="tilt-card-content space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                                <span class="font-orbitron font-bold text-slate-200">KNOWLEDGE TREE</span>
+                                <span class="text-[10px] font-mono text-cyber-gold">CONNECTED BRAIN</span>
+                            </div>
+
+                            <div class="space-y-2 text-xs font-mono">
+                                <div class="p-2 rounded bg-slate-950 border border-slate-800 flex items-center gap-2">
+                                    <i class="fa-solid fa-file-lines text-cyber-gold"></i>
+                                    <span>2026 Product Roadmap Spec</span>
+                                </div>
+                                <div class="p-2 rounded bg-slate-950 border border-slate-800 flex items-center gap-2 pl-6 border-l-2 border-cyber-gold">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-cyber-cyan"></i>
+                                    <span class="text-slate-300">AI Summary: 14 Key Milestones</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 7: CANVA ================= -->
+        <section id="page-7" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400">
+                        <span class="px-2 py-0.5 rounded bg-cyan-400/10 border border-cyan-400/30">TOOL 05 / 05</span>
+                        <span>GENERATIVE VISUAL DESIGN SUITE</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100">
+                        Canva <span class="text-cyan-400">Magic Studio</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Democratizing high-end design production with generative AI. Canva's Magic Studio turns text prompts into multi-page presentations, video clips, and brand-consistent design suites in seconds.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-wand-magic-sparkles text-cyan-400 mb-1"></i>
+                            <div class="font-bold text-slate-200">Magic Design</div>
+                            <div class="text-[11px] text-slate-400">Generates ready pitch decks from plain text prompts.</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                            <i class="fa-solid fa-photo-film text-cyan-400 mb-1"></i>
+                            <div class="font-bold text-slate-200">Generative Media</div>
+                            <div class="text-[11px] text-slate-400">Instant AI image/video expansion and object removal.</div>
+                        </div>
+                    </div>
+
+                    <!-- 5 External Redirect Links -->
+                    <div class="pt-2">
+                        <div class="text-xs font-mono text-slate-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyan-400"></i> VERIFIED DIRECT REDIRECTS (5):
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <a href="https://canva.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+                                Launch Canva <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://canva.com/magic-studio" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+                                Magic Studio <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://canva.com/presentations" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+                                Presentations <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://canva.com/designschool" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+                                Design School <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://canva.com/pricing" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5">
+                                Pricing <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="tilt-card carbon-pattern p-6 rounded-2xl border border-cyan-400/30">
+                        <div class="tilt-card-content space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                                <span class="font-orbitron font-bold text-slate-200">CANVAS STUDIO</span>
+                                <span class="text-[10px] font-mono text-cyan-400">AI GENERATIVE CANVAS</span>
+                            </div>
+
+                            <div class="relative aspect-video rounded-lg bg-slate-950 border border-slate-800 overflow-hidden flex items-center justify-center">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-cyber-cyan/20 via-purple-600/20 to-pink-500/20 animate-pulse"></div>
+                                <div class="relative text-center p-4">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-3xl text-cyan-400 mb-2"></i>
+                                    <div class="font-orbitron text-xs font-bold text-slate-100">PROMPT GENERATED</div>
+                                    <div class="text-[10px] text-slate-400 font-mono mt-1">1080p Brand Asset • Rendered in 0.8s</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 8: COMPARISON MATRIX ================= -->
+        <section id="page-8" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="mb-4">
+                <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan">
+                    <span class="px-2 py-0.5 rounded bg-cyber-cyan/10 border border-cyber-cyan/30">PAGE 08</span>
+                    <span>TECH SPECS & CAPABILITY MATRIX</span>
+                </div>
+                <h2 class="font-orbitron text-2xl sm:text-3xl font-extrabold text-slate-100">
+                    DEEP TOOL COMPARISON MATRIX
+                </h2>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/80 backdrop-blur">
+                <table class="w-full text-left text-xs font-mono">
+                    <thead class="bg-slate-900/90 text-cyber-cyan border-b border-slate-800">
+                        <tr>
+                            <th class="p-3 font-orbitron">TOOL NAME</th>
+                            <th class="p-3 font-orbitron">CORE PURPOSE</th>
+                            <th class="p-3 font-orbitron">AGENT DEPTH</th>
+                            <th class="p-3 font-orbitron">LATENCY</th>
+                            <th class="p-3 font-orbitron">ECOSYSTEM SCORE</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="p-3 font-bold text-cyber-cyan flex items-center gap-2">
+                                <i class="fa-solid fa-brain"></i> ChatGPT
+                            </td>
+                            <td class="p-3">Reasoning &amp; Code Execution</td>
+                            <td class="p-3 text-emerald-400">Very High (Autonomous)</td>
+                            <td class="p-3">&lt; 350ms</td>
+                            <td class="p-3"><span class="text-cyber-cyan">★★★★★</span> (9.9/10)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="p-3 font-bold text-cyber-purple flex items-center gap-2">
+                                <i class="fa-solid fa-diagram-project"></i> Zapier
+                            </td>
+                            <td class="p-3">Workflow &amp; App Pipelines</td>
+                            <td class="p-3 text-emerald-400">High (7000+ Apps)</td>
+                            <td class="p-3">Real-Time Webhooks</td>
+                            <td class="p-3"><span class="text-cyber-purple">★★★★★</span> (9.7/10)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="p-3 font-bold text-cyber-magenta flex items-center gap-2">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i> Perplexity
+                            </td>
+                            <td class="p-3">Live Web Search &amp; Citations</td>
+                            <td class="p-3 text-blue-400">Medium-High</td>
+                            <td class="p-3">&lt; 500ms Search</td>
+                            <td class="p-3"><span class="text-cyber-magenta">★★★★★</span> (9.6/10)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="p-3 font-bold text-cyber-gold flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group"></i> Notion AI
+                            </td>
+                            <td class="p-3">Connected Workspace OS</td>
+                            <td class="p-3 text-blue-400">Medium (Internal Brain)</td>
+                            <td class="p-3">&lt; 200ms DB Sync</td>
+                            <td class="p-3"><span class="text-cyber-gold">★★★★☆</span> (9.4/10)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="p-3 font-bold text-cyan-400 flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Canva
+                            </td>
+                            <td class="p-3">Generative Visual Design</td>
+                            <td class="p-3 text-yellow-400">Visual Automation</td>
+                            <td class="p-3">0.8s Generation</td>
+                            <td class="p-3"><span class="text-cyan-400">★★★★☆</span> (9.3/10)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 9: GLOBAL REDIRECT CENTER ================= -->
+        <section id="page-9" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="mb-3">
+                <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan">
+                    <span class="px-2 py-0.5 rounded bg-cyber-cyan/10 border border-cyber-cyan/30">PAGE 09</span>
+                    <span>25 VERIFIED DIRECT EXTERNAL LINKS</span>
+                </div>
+                <h2 class="font-orbitron text-2xl font-extrabold text-slate-100">
+                    GLOBAL REDIRECT HUB
+                </h2>
+            </div>
+
+            <!-- Grid of All 5 Tools with 5 Links Each -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 max-h-[60vh] overflow-y-auto pr-1">
+                
+                <!-- ChatGPT Links -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-cyber-cyan/30 space-y-2">
+                    <div class="font-orbitron text-xs font-bold text-cyber-cyan border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-brain"></i> ChatGPT
+                    </div>
+                    <ul class="text-[11px] font-mono space-y-1.5">
+                        <li><a href="https://chatgpt.com" target="_blank" class="hover:text-cyber-cyan transition block truncate">1. Launch App ↗</a></li>
+                        <li><a href="https://chatgpt.com/gpts" target="_blank" class="hover:text-cyber-cyan transition block truncate">2. GPT Store ↗</a></li>
+                        <li><a href="https://platform.openai.com" target="_blank" class="hover:text-cyber-cyan transition block truncate">3. Platform API ↗</a></li>
+                        <li><a href="https://help.openai.com" target="_blank" class="hover:text-cyber-cyan transition block truncate">4. Help Center ↗</a></li>
+                        <li><a href="https://openai.com/chatgpt/pricing" target="_blank" class="hover:text-cyber-cyan transition block truncate">5. Pricing ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Zapier Links -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-cyber-purple/30 space-y-2">
+                    <div class="font-orbitron text-xs font-bold text-cyber-purple border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-diagram-project"></i> Zapier
+                    </div>
+                    <ul class="text-[11px] font-mono space-y-1.5">
+                        <li><a href="https://zapier.com" target="_blank" class="hover:text-cyber-purple transition block truncate">1. Launch App ↗</a></li>
+                        <li><a href="https://zapier.com/apps" target="_blank" class="hover:text-cyber-purple transition block truncate">2. App Directory ↗</a></li>
+                        <li><a href="https://zapier.com/ai" target="_blank" class="hover:text-cyber-purple transition block truncate">3. Zapier AI ↗</a></li>
+                        <li><a href="https://zapier.com/templates" target="_blank" class="hover:text-cyber-purple transition block truncate">4. Templates ↗</a></li>
+                        <li><a href="https://zapier.com/pricing" target="_blank" class="hover:text-cyber-purple transition block truncate">5. Pricing ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Perplexity Links -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-cyber-magenta/30 space-y-2">
+                    <div class="font-orbitron text-xs font-bold text-cyber-magenta border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Perplexity
+                    </div>
+                    <ul class="text-[11px] font-mono space-y-1.5">
+                        <li><a href="https://perplexity.ai" target="_blank" class="hover:text-cyber-magenta transition block truncate">1. Launch Engine ↗</a></li>
+                        <li><a href="https://perplexity.ai/pro" target="_blank" class="hover:text-cyber-magenta transition block truncate">2. Perplexity Pro ↗</a></li>
+                        <li><a href="https://perplexity.ai/api" target="_blank" class="hover:text-cyber-magenta transition block truncate">3. Search API ↗</a></li>
+                        <li><a href="https://perplexity.ai/discover" target="_blank" class="hover:text-cyber-magenta transition block truncate">4. Discover Feed ↗</a></li>
+                        <li><a href="https://perplexity.ai/hub" target="_blank" class="hover:text-cyber-magenta transition block truncate">5. FAQ &amp; Hub ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Notion AI Links -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-cyber-gold/30 space-y-2">
+                    <div class="font-orbitron text-xs font-bold text-cyber-gold border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-layer-group"></i> Notion AI
+                    </div>
+                    <ul class="text-[11px] font-mono space-y-1.5">
+                        <li><a href="https://notion.so" target="_blank" class="hover:text-cyber-gold transition block truncate">1. Launch Notion ↗</a></li>
+                        <li><a href="https://notion.so/product/ai" target="_blank" class="hover:text-cyber-gold transition block truncate">2. Notion AI ↗</a></li>
+                        <li><a href="https://notion.so/templates" target="_blank" class="hover:text-cyber-gold transition block truncate">3. Templates ↗</a></li>
+                        <li><a href="https://notion.so/help" target="_blank" class="hover:text-cyber-gold transition block truncate">4. Help &amp; Guides ↗</a></li>
+                        <li><a href="https://notion.so/pricing" target="_blank" class="hover:text-cyber-gold transition block truncate">5. Pricing ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Canva Links -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-cyan-400/30 space-y-2">
+                    <div class="font-orbitron text-xs font-bold text-cyan-400 border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Canva
+                    </div>
+                    <ul class="text-[11px] font-mono space-y-1.5">
+                        <li><a href="https://canva.com" target="_blank" class="hover:text-cyan-400 transition block truncate">1. Launch Canva ↗</a></li>
+                        <li><a href="https://canva.com/magic-studio" target="_blank" class="hover:text-cyan-400 transition block truncate">2. Magic Studio ↗</a></li>
+                        <li><a href="https://canva.com/presentations" target="_blank" class="hover:text-cyan-400 transition block truncate">3. Presentations ↗</a></li>
+                        <li><a href="https://canva.com/designschool" target="_blank" class="hover:text-cyan-400 transition block truncate">4. Design School ↗</a></li>
+                        <li><a href="https://canva.com/pricing" target="_blank" class="hover:text-cyan-400 transition block truncate">5. Pricing ↗</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PAGE 10: STACK ARCHITECTURE ================= -->
+        <section id="page-10" class="page-slide w-full max-w-6xl mx-auto h-full flex flex-col justify-center text-center">
+            <div class="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono mb-4">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                CONCLUSION &amp; UNIFIED ARCHITECTURE
+            </div>
+
+            <h2 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-slate-100 mb-3">
+                BUILD YOUR 2026 CYBER STACK
+            </h2>
+
+            <p class="max-w-xl mx-auto text-slate-400 text-xs md:text-sm mb-6">
+                Combine all 5 top digital tools into an automated feedback loop: Perplexity researches raw data, ChatGPT reasons &amp; writes logic, Zapier automates execution, Notion stores the database, and Canva renders visuals.
+            </p>
+
+            <!-- Interactive Blueprint Card -->
+            <div class="tilt-card carbon-pattern max-w-3xl mx-auto p-6 rounded-2xl border border-cyber-cyan/40 glow-cyan w-full text-left font-mono text-xs mb-8">
+                <div class="tilt-card-content space-y-3">
+                    <div class="text-cyber-cyan font-bold text-sm border-b border-slate-800 pb-2 flex items-center justify-between">
+                        <span>UNIFIED AGENT WORKFLOW DIAGRAM</span>
+                        <span class="text-[10px] text-slate-400">AUTONOMOUS LOOP</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-2 text-center text-[10px]">
+                        <div class="p-2 rounded bg-slate-900 border border-cyber-magenta/40 text-cyber-magenta">1. RESEARCH<br><span class="text-slate-400">(Perplexity)</span></div>
+                        <div class="p-2 rounded bg-slate-900 border border-cyber-cyan/40 text-cyber-cyan">2. REASON<br><span class="text-slate-400">(ChatGPT)</span></div>
+                        <div class="p-2 rounded bg-slate-900 border border-cyber-purple/40 text-cyber-purple">3. AUTOMATE<br><span class="text-slate-400">(Zapier)</span></div>
+                        <div class="p-2 rounded bg-slate-900 border border-cyber-gold/40 text-cyber-gold">4. STORE<br><span class="text-slate-400">(Notion AI)</span></div>
+                        <div class="p-2 rounded bg-slate-900 border border-cyan-400/40 text-cyan-400">5. RENDER<br><span class="text-slate-400">(Canva)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-4">
+                <button onclick="goToPage(1)" class="px-6 py-3 rounded-xl bg-slate-900 border border-cyber-cyan/50 text-cyber-cyan font-orbitron font-bold text-xs uppercase hover:bg-cyber-cyan/10 transition">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> REPLAY PRESENTATION
+                </button>
+                <button onclick="goToPage(9)" class="px-6 py-3 rounded-xl bg-cyber-cyan text-slate-950 font-orbitron font-bold text-xs uppercase hover:brightness-110 transition shadow-lg shadow-cyber-cyan/30">
+                    ACCESS ALL REDIRECTS <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM PAGINATION NAV FOOTER -->
+    <footer class="relative z-30 px-6 py-3 border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-md flex items-center justify-between font-mono text-xs">
+        <button id="prev-btn" onclick="prevPage()" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1">
+            <i class="fa-solid fa-chevron-left text-[10px]"></i> PREV
+        </button>
+
+        <!-- Progress Bar & Text Counter -->
+        <div class="flex items-center space-x-3">
+            <div class="w-32 sm:w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta transition-all duration-300 w-[10%]"></div>
+            </div>
+            <span id="page-counter" class="text-cyber-cyan font-bold">01 / 10</span>
+        </div>
+
+        <button id="next-btn" onclick="nextPage()" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1">
+            NEXT <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+
+        function updateNavigationUI() {
+            // Hide/Show Pages
+            document.querySelectorAll('.page-slide').forEach((el, index) => {
+                if (index + 1 === currentPage) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+
+            // Update Header Nav active states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const pageNum = parseInt(btn.getAttribute('data-page'));
+                if (pageNum === currentPage) {
+                    btn.classList.add('text-cyber-cyan', 'font-bold');
+                } else {
+                    btn.classList.remove('text-cyber-cyan', 'font-bold');
+                }
+            });
+
+            // Mobile Select Dropdown
+            const select = document.getElementById('mobile-page-select');
+            if (select) select.value = currentPage.toString();
+
+            // Progress & Counter
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('page-counter').textContent = `${currentPage < 10 ? '0' : ''}${currentPage} / 10`;
+
+            // Prev / Next button states
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('next-btn').disabled = (currentPage === totalPages);
+
+            // Play Cyber Navigation Sound
+            playCyberSound(400 + currentPage * 50, 'sine', 0.05);
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updateNavigationUI();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateNavigationUI();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateNavigationUI();
+            }
+        }
+
+        // Keyboard Arrow Navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextPage();
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevPage();
+        });
+
+        const cursorCanvas = document.getElementById('cursor-canvas');
+        const ctx = cursorCanvas.getContext('2d');
+
+        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let isHovered = false;
+        let outerRotation = 0;
+        let ripples = [];
+
+        function resizeCanvas() {
+            cursorCanvas.width = window.innerWidth;
+            cursorCanvas.height = window.innerHeight;
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            initBgParticles();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Click Ripple Effect
+        window.addEventListener('mousedown', (e) => {
+            ripples.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 5,
+                maxRadius: 40,
+                alpha: 1
+            });
+            playCyberSound(800, 'triangle', 0.08);
+        });
+
+        // Hover Detection on Interactive Elements
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, select, input, .tilt-card, .nav-btn')) {
+                if (!isHovered) playCyberSound(600, 'sine', 0.03);
+                isHovered = true;
+            } else {
+                isHovered = false;
+            }
+        });
+
+        function renderCursor() {
+            ctx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
+
+            // Smooth Lerp Follow
+            target.x += (mouse.x - target.x) * 0.2;
+            target.y += (mouse.y - target.y) * 0.2;
+
+            outerRotation += 0.02;
+
+            const size = isHovered ? 24 : 16;
+            const ringColor = isHovered ? '#FF007F' : '#00E5FF';
+
+            // Draw Inner Target Reticle Dot
+            ctx.save();
+            ctx.fillStyle = '#00E5FF';
+            ctx.shadowColor = '#00E5FF';
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(target.x, target.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Draw Rotating HUD Target Outer Ring
+            ctx.save();
+            ctx.translate(target.x, target.y);
+            ctx.rotate(outerRotation);
+            ctx.strokeStyle = ringColor;
+            ctx.lineWidth = 1.5;
+            ctx.shadowColor = ringColor;
+            ctx.shadowBlur = isHovered ? 12 : 6;
+
+            // Outer Dashed Ring
+            ctx.beginPath();
+            ctx.arc(0, 0, size, 0, Math.PI * 2);
+            ctx.setLineDash([6, 6]);
+            ctx.stroke();
+
+            // Corner Crosshair Hairlines
+            ctx.setLineDash([]);
+            const gap = size + 4;
+            const len = 6;
+            ctx.beginPath();
+            // Top Line
+            ctx.moveTo(0, -gap); ctx.lineTo(0, -gap - len);
+            // Bottom Line
+            ctx.moveTo(0, gap); ctx.lineTo(0, gap + len);
+            // Left Line
+            ctx.moveTo(-gap, 0); ctx.lineTo(-gap - len, 0);
+            // Right Line
+            ctx.moveTo(gap, 0); ctx.lineTo(gap + len, 0);
+            ctx.stroke();
+
+            ctx.restore();
+
+            // Render Click Ripples
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const r = ripples[i];
+                r.radius += 2;
+                r.alpha -= 0.04;
+
+                if (r.alpha <= 0) {
+                    ripples.splice(i, 1);
+                } else {
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(0, 229, 255, ${r.alpha})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            requestAnimationFrame(renderCursor);
+        }
+
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let bgParticles = [];
+
+        function initBgParticles() {
+            bgParticles = [];
+            for (let i = 0; i < 60; i++) {
+                bgParticles.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    size: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function renderBgParticles() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgCtx.fillStyle = '#00E5FF';
+
+            bgParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = bgCanvas.width;
+                if (p.x > bgCanvas.width) p.x = 0;
+                if (p.y < 0) p.y = bgCanvas.height;
+                if (p.y > bgCanvas.height) p.y = 0;
+
+                bgCtx.save();
+                bgCtx.globalAlpha = p.alpha;
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                bgCtx.fill();
+                bgCtx.restore();
+            });
+
+            requestAnimationFrame(renderBgParticles);
+        }
+
+        const coreCanvas = document.getElementById('core-canvas');
+        const coreCtx = coreCanvas.getContext('2d');
+
+        let coreNodes = [];
+        let coreParticles = [];
+        let coreAngle = 0;
+        let coreSpeed = 1.0;
+        let pulseEnergy = 0;
+
+        const toolNodesData = [
+            { name: 'ChatGPT', color: '#00E5FF' },
+            { name: 'Zapier', color: '#A855F7' },
+            { name: 'Perplexity', color: '#FF007F' },
+            { name: 'Notion AI', color: '#F59E0B' },
+            { name: 'Canva', color: '#22D3EE' }
+        ];
+
+        function initCoreAnimation() {
+            const rect = coreCanvas.parentElement.getBoundingClientRect();
+            coreCanvas.width = rect.width;
+            coreCanvas.height = rect.height;
+
+            coreParticles = [];
+            for (let i = 0; i < 70; i++) {
+                coreParticles.push({
+                    x: Math.random() * coreCanvas.width,
+                    y: Math.random() * coreCanvas.height,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: (Math.random() - 0.5) * 1.5,
+                    radius: Math.random() * 2 + 1,
+                    color: toolNodesData[Math.floor(Math.random() * toolNodesData.length)].color
+                });
+            }
+        }
+
+        function renderCore() {
+            if (currentPage === 5) {
+                coreCtx.clearRect(0, 0, coreCanvas.width, coreCanvas.height);
+                const centerX = coreCanvas.width / 2;
+                const centerY = coreCanvas.height / 2;
+                const radius = Math.min(centerX, centerY) * 0.55;
+
+                coreAngle += 0.01 * coreSpeed;
+                if (pulseEnergy > 0) pulseEnergy -= 0.02;
+
+                // Render Background Floating Neural Particles
+                coreParticles.forEach(p => {
+                    p.x += p.vx * coreSpeed;
+                    p.y += p.vy * coreSpeed;
+
+                    if (p.x < 0 || p.x > coreCanvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > coreCanvas.height) p.vy *= -1;
+
+                    coreCtx.save();
+                    coreCtx.fillStyle = p.color;
+                    coreCtx.globalAlpha = 0.4;
+                    coreCtx.beginPath();
+                    coreCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    coreCtx.fill();
+                    coreCtx.restore();
+                });
+
+                // Calculate 5 Tool Node Positions in Rotating Pentagon Orbit
+                const toolPositions = [];
+                for (let i = 0; i < 5; i++) {
+                    const angle = coreAngle + (i * (Math.PI * 2 / 5));
+                    const x = centerX + Math.cos(angle) * (radius + pulseEnergy * 20);
+                    const y = centerY + Math.sin(angle) * (radius + pulseEnergy * 20);
+                    toolPositions.push({ x, y, data: toolNodesData[i] });
+                }
+
+                // Draw Connecting Laser Beams to Center Hub & Between Nodes
+                toolPositions.forEach((node, i) => {
+                    // Center Laser Link
+                    coreCtx.save();
+                    coreCtx.strokeStyle = node.data.color;
+                    coreCtx.lineWidth = 1.5 + pulseEnergy * 2;
+                    coreCtx.shadowColor = node.data.color;
+                    coreCtx.shadowBlur = 10;
+                    coreCtx.globalAlpha = 0.6;
+                    coreCtx.beginPath();
+                    coreCtx.moveTo(centerX, centerY);
+                    coreCtx.lineTo(node.x, node.y);
+                    coreCtx.stroke();
+                    coreCtx.restore();
+
+                    // Connect to Next Orbit Node
+                    const nextNode = toolPositions[(i + 1) % 5];
+                    coreCtx.save();
+                    coreCtx.strokeStyle = node.data.color;
+                    coreCtx.lineWidth = 1;
+                    coreCtx.globalAlpha = 0.3;
+                    coreCtx.beginPath();
+                    coreCtx.moveTo(node.x, node.y);
+                    coreCtx.lineTo(nextNode.x, nextNode.y);
+                    coreCtx.stroke();
+                    coreCtx.restore();
+                });
+
+                // Draw Central Cyber Reactor Core
+                coreCtx.save();
+                coreCtx.fillStyle = '#080B10';
+                coreCtx.strokeStyle = '#00E5FF';
+                coreCtx.lineWidth = 3;
+                coreCtx.shadowColor = '#00E5FF';
+                coreCtx.shadowBlur = 20 + pulseEnergy * 30;
+                coreCtx.beginPath();
+                coreCtx.arc(centerX, centerY, 35 + pulseEnergy * 15, 0, Math.PI * 2);
+                coreCtx.fill();
+                coreCtx.stroke();
+
+                coreCtx.fillStyle = '#00E5FF';
+                coreCtx.font = 'bold 10px Orbitron';
+                coreCtx.textAlign = 'center';
+                coreCtx.textBaseline = 'middle';
+                coreCtx.fillText('NEXUS', centerX, centerY);
+                coreCtx.restore();
+
+                // Draw Tool Outer Nodes
+                toolPositions.forEach(node => {
+                    coreCtx.save();
+                    coreCtx.fillStyle = '#0D1117';
+                    coreCtx.strokeStyle = node.data.color;
+                    coreCtx.lineWidth = 2;
+                    coreCtx.shadowColor = node.data.color;
+                    coreCtx.shadowBlur = 12;
+                    coreCtx.beginPath();
+                    coreCtx.arc(node.x, node.y, 22, 0, Math.PI * 2);
+                    coreCtx.fill();
+                    coreCtx.stroke();
+
+                    coreCtx.fillStyle = '#F8FAFC';
+                    coreCtx.font = 'bold 9px Orbitron';
+                    coreCtx.textAlign = 'center';
+                    coreCtx.textBaseline = 'middle';
+                    coreCtx.fillText(node.data.name, node.x, node.y);
+                    coreCtx.restore();
+                });
+            }
+
+            requestAnimationFrame(renderCore);
+        }
+
+        function changeCoreSpeed() {
+            if (coreSpeed === 1.0) coreSpeed = 2.0;
+            else if (coreSpeed === 2.0) coreSpeed = 0.5;
+            else coreSpeed = 1.0;
+            document.getElementById('speed-label').textContent = `${coreSpeed.toFixed(1)}x`;
+            playCyberSound(700, 'sine', 0.05);
+        }
+
+        function triggerCorePulse() {
+            pulseEnergy = 1.5;
+            playCyberSound(300, 'sawtooth', 0.15);
+        }
+
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+
+        let audioEnabled = false;
+        let audioCtx = null;
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('sound-icon');
+            const btn = document.getElementById('sound-btn');
+
+            if (audioEnabled) {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                icon.className = 'fa-solid fa-volume-high text-cyber-cyan';
+                btn.querySelector('span').textContent = 'AUDIO: ON';
+                playCyberSound(880, 'sine', 0.1);
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+                btn.querySelector('span').textContent = 'AUDIO: OFF';
+            }
+        }
+
+        function playCyberSound(freq, type = 'sine', duration = 0.05) {
+            if (!audioEnabled || !audioCtx) return;
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                // Audio Context fallback safeguard
+            }
+        }
+
+        window.onload = function () {
+            resizeCanvas();
+            initCoreAnimation();
+
+            // Start Main Animation Loops
+            renderCursor();
+            renderBgParticles();
+            renderCore();
+
+            updateNavigationUI();
+        };
+    </script>
+</body>
+</html>
