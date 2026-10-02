@@ -151,6 +151,111 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 229, 255, 0.6);
         }
+
+        /* PAGE 11 — premium live-project motion layer (scoped only to NENOX FORGE) */
+        #page-11.nenox-stage {
+            isolation: isolate;
+        }
+        #page-11.nenox-stage::before {
+            content: "";
+            position: absolute;
+            inset: 7% 2% 8%;
+            z-index: -2;
+            border-radius: 32px;
+            background:
+                radial-gradient(circle at 18% 35%, rgba(0,229,255,.14), transparent 34%),
+                radial-gradient(circle at 82% 60%, rgba(168,85,247,.16), transparent 38%);
+            filter: blur(30px);
+            opacity: 0;
+            transform: scale(.94);
+            transition: opacity 1s ease, transform 1.2s cubic-bezier(.16,1,.3,1);
+        }
+        #page-11.nenox-stage.active::before { opacity: 1; transform: scale(1); }
+        #page-11 .nenox-card {
+            opacity: 0;
+            transform: translateY(24px) scale(.985);
+            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1), box-shadow .5s ease;
+        }
+        #page-11.active .nenox-card { opacity: 1; transform: translateY(0) scale(1); }
+        #page-11.active .nenox-card:nth-child(1) { transition-delay: .08s; }
+        #page-11.active .nenox-card:nth-child(2) { transition-delay: .18s; }
+        #page-11 .nenox-launch {
+            position: relative; overflow: hidden;
+            transition: transform .35s cubic-bezier(.16,1,.3,1), filter .35s ease, box-shadow .35s ease;
+        }
+        #page-11 .nenox-launch::before {
+            content: ""; position: absolute; inset: 0; left: -120%; width: 70%;
+            background: linear-gradient(105deg, transparent, rgba(255,255,255,.42), transparent);
+            transform: skewX(-18deg); transition: left .75s ease;
+        }
+        #page-11 .nenox-launch:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 18px 45px rgba(0,229,255,.18); }
+        #page-11 .nenox-launch:hover::before { left: 145%; }
+        #page-11 .nenox-qr-wrap { position: relative; }
+        #page-11 .nenox-qr-wrap::after {
+            content: ""; position: absolute; left: 8%; right: 8%; top: 8%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0,229,255,.95), transparent);
+            box-shadow: 0 0 12px rgba(0,229,255,.75);
+            animation: nenoxScan 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes nenoxScan { 0%,100% { transform: translateY(0); opacity: .2; } 50% { transform: translateY(250px); opacity: 1; } }
+
+        /* PAGE 11 — compact viewport-safe layout so the complete card stays visible */
+        #page-11.nenox-stage {
+            min-height: 0;
+            padding-block: 0;
+        }
+        #page-11 .nenox-card {
+            width: 100%;
+            height: 100%;
+            max-height: calc(100vh - 150px);
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #page-11 .nenox-card > .tilt-card {
+            max-height: 100%;
+            min-height: 0;
+            overflow: hidden;
+            padding: clamp(14px, 2.1vh, 28px) clamp(18px, 2.2vw, 34px);
+        }
+        #page-11 .nenox-card h2 {
+            font-size: clamp(1.8rem, 5.2vh, 3rem);
+        }
+        #page-11 .nenox-card p {
+            margin-top: clamp(6px, 1vh, 14px);
+            font-size: clamp(.72rem, 1.8vh, .95rem);
+            line-height: 1.35;
+        }
+        #page-11 .nenox-qr-wrap {
+            margin-top: clamp(8px, 1.5vh, 18px);
+            padding: clamp(8px, 1vh, 14px);
+            border-radius: 22px;
+        }
+        #page-11 .nenox-qr-wrap img {
+            width: clamp(150px, 25vh, 220px);
+            height: clamp(150px, 25vh, 220px);
+        }
+        #page-11 .nenox-card .nenox-qr-wrap + div {
+            margin-top: clamp(7px, 1vh, 12px);
+        }
+        #page-11 .nenox-card .nenox-launch,
+        #page-11 .nenox-card .nenox-launch + div {
+            padding-top: clamp(9px, 1.3vh, 14px);
+            padding-bottom: clamp(9px, 1.3vh, 14px);
+        }
+        #page-11 .nenox-card > .tilt-card > .nenox-launch {
+            margin-top: clamp(8px, 1.2vh, 14px);
+        }
+        #page-11 .nenox-card > .tilt-card > .mt-5 {
+            margin-top: clamp(8px, 1.2vh, 14px);
+        }
+        @media (max-height: 720px) {
+            #page-11 .nenox-card > .tilt-card { padding-block: 10px; }
+            #page-11 .nenox-qr-wrap img { width: 150px; height: 150px; }
+            #page-11 .nenox-card h2 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body class="cyber-grid text-slate-100 flex flex-col justify-between relative select-none">
@@ -191,6 +296,7 @@
                 <button onclick="goToPage(8)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="8">08. MATRIX</button>
                 <button onclick="goToPage(9)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="9">09. REDIRECTS</button>
                 <button onclick="goToPage(10)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="10">10. STACK</button>
+                <button onclick="goToPage(11)" class="nav-btn px-2.5 py-1 rounded hover:bg-slate-800 transition text-slate-400 hover:text-cyber-cyan" data-page="11">11. NENOX FORGE</button>
             </nav>
 
             <!-- Sound Toggle Button -->
@@ -212,6 +318,7 @@
                     <option value="8">08. TECH MATRIX</option>
                     <option value="9">09. REDIRECT HUB</option>
                     <option value="10">10. STACK ARCHITECTURE</option>
+                    <option value="11">11. NENOX FORGE • LIVE</option>
                 </select>
             </div>
         </div>
@@ -961,6 +1068,52 @@
             </div>
         </section>
 
+        <!-- ================= PAGE 11: NENOX FORGE LIVE PANEL ================= -->
+        <section id="page-11" class="page-slide nenox-stage w-full max-w-4xl mx-auto h-full flex flex-col justify-center">
+            <div class="flex items-center justify-center h-full nenox-card">
+                <div class="tilt-card carbon-pattern p-6 sm:p-8 md:p-10 rounded-3xl border border-cyber-cyan/40 glow-cyan w-full max-w-2xl text-center flex flex-col items-center justify-center">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan mb-4">
+                        <span class="px-2.5 py-1 rounded bg-cyber-cyan/10 border border-cyber-cyan/30">PAGE 11</span>
+                        <span>PROJECT ACCESS</span>
+                    </div>
+
+                    <h2 class="font-orbitron text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-100 leading-tight">
+                        NENOX <span class="text-cyber-cyan">FORGE</span>
+                    </h2>
+
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mt-4 max-w-lg">
+                        Scan the QR code with your phone or open the project directly using the link below.
+                    </p>
+
+                    <div class="mt-6 bg-white rounded-3xl p-4 sm:p-5 shadow-2xl shadow-cyber-cyan/20 nenox-qr-wrap nenox-orb">
+                        <img
+                            src="https://quickchart.io/qr?text=https://parthadwani.github.io/nenoxforge/&size=240&margin=2"
+                            alt="QR Code for NENOX FORGE"
+                            class="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60"
+                        >
+                    </div>
+
+                    <div class="mt-5">
+                        <div class="text-[10px] text-slate-500 font-mono mb-1.5">SCAN TO OPEN PROJECT</div>
+                        <div class="font-orbitron text-xs sm:text-sm text-cyber-cyan font-bold tracking-wider">NENOXFORGE • WEB PROJECT</div>
+                    </div>
+
+                    <div class="mt-5 w-full max-w-xl space-y-2.5">
+                        <a href="https://parthadwani.github.io/nenoxforge/" target="_blank" rel="noopener noreferrer"
+                           class="nenox-launch w-full px-5 py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-blue-600 text-slate-950 font-orbitron font-bold text-xs sm:text-sm uppercase tracking-wide hover:brightness-110 transition shadow-lg shadow-cyber-cyan/25 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rocket"></i>
+                            OPEN NENOX FORGE
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+
+                        <div class="px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[10px] sm:text-xs font-mono text-slate-400 text-center break-all">
+                            https://parthadwani.github.io/nenoxforge/
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- BOTTOM PAGINATION NAV FOOTER -->
@@ -972,9 +1125,9 @@
         <!-- Progress Bar & Text Counter -->
         <div class="flex items-center space-x-3">
             <div class="w-32 sm:w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                <div id="progress-bar" class="h-full bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta transition-all duration-300 w-[10%]"></div>
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta transition-all duration-300 w-[9.09%]"></div>
             </div>
-            <span id="page-counter" class="text-cyber-cyan font-bold">01 / 10</span>
+            <span id="page-counter" class="text-cyber-cyan font-bold">01 / 11</span>
         </div>
 
         <button id="next-btn" onclick="nextPage()" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1">
@@ -984,10 +1137,31 @@
 
     <script>
         let currentPage = 1;
-        const totalPages = 10;
+        const totalPages = 11;
+
+        // Explicitly bind navigation handlers to the global window scope
+        window.goToPage = function(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updateNavigationUI();
+            }
+        };
+
+        window.prevPage = function() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateNavigationUI();
+            }
+        };
+
+        window.nextPage = function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateNavigationUI();
+            }
+        };
 
         function updateNavigationUI() {
-            // Hide/Show Pages
             document.querySelectorAll('.page-slide').forEach((el, index) => {
                 if (index + 1 === currentPage) {
                     el.classList.add('active');
@@ -996,7 +1170,6 @@
                 }
             });
 
-            // Update Header Nav active states
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 const pageNum = parseInt(btn.getAttribute('data-page'));
                 if (pageNum === currentPage) {
@@ -1006,218 +1179,33 @@
                 }
             });
 
-            // Mobile Select Dropdown
             const select = document.getElementById('mobile-page-select');
             if (select) select.value = currentPage.toString();
 
-            // Progress & Counter
             const progress = (currentPage / totalPages) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('page-counter').textContent = `${currentPage < 10 ? '0' : ''}${currentPage} / 10`;
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = `${progress}%`;
 
-            // Prev / Next button states
-            document.getElementById('prev-btn').disabled = (currentPage === 1);
-            document.getElementById('next-btn').disabled = (currentPage === totalPages);
+            const pageCounter = document.getElementById('page-counter');
+            if (pageCounter) pageCounter.textContent = `${currentPage < 10 ? '0' : ''}${currentPage} / 11`;
 
-            // Play Cyber Navigation Sound
+            const prevBtn = document.getElementById('prev-btn');
+            if (prevBtn) prevBtn.disabled = (currentPage === 1);
+
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) nextBtn.disabled = (currentPage === totalPages);
+
             playCyberSound(400 + currentPage * 50, 'sine', 0.05);
         }
 
-        function goToPage(page) {
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                updateNavigationUI();
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                updateNavigationUI();
-            }
-        }
-
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updateNavigationUI();
-            }
-        }
-
-        // Keyboard Arrow Navigation
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextPage();
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevPage();
-        });
-
-        const cursorCanvas = document.getElementById('cursor-canvas');
-        const ctx = cursorCanvas.getContext('2d');
-
+        let cursorCanvas, ctx, bgCanvas, bgCtx, coreCanvas, coreCtx;
         let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         let isHovered = false;
         let outerRotation = 0;
         let ripples = [];
-
-        function resizeCanvas() {
-            cursorCanvas.width = window.innerWidth;
-            cursorCanvas.height = window.innerHeight;
-            bgCanvas.width = window.innerWidth;
-            bgCanvas.height = window.innerHeight;
-            initBgParticles();
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        // Click Ripple Effect
-        window.addEventListener('mousedown', (e) => {
-            ripples.push({
-                x: e.clientX,
-                y: e.clientY,
-                radius: 5,
-                maxRadius: 40,
-                alpha: 1
-            });
-            playCyberSound(800, 'triangle', 0.08);
-        });
-
-        // Hover Detection on Interactive Elements
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('a, button, select, input, .tilt-card, .nav-btn')) {
-                if (!isHovered) playCyberSound(600, 'sine', 0.03);
-                isHovered = true;
-            } else {
-                isHovered = false;
-            }
-        });
-
-        function renderCursor() {
-            ctx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
-
-            // Smooth Lerp Follow
-            target.x += (mouse.x - target.x) * 0.2;
-            target.y += (mouse.y - target.y) * 0.2;
-
-            outerRotation += 0.02;
-
-            const size = isHovered ? 24 : 16;
-            const ringColor = isHovered ? '#FF007F' : '#00E5FF';
-
-            // Draw Inner Target Reticle Dot
-            ctx.save();
-            ctx.fillStyle = '#00E5FF';
-            ctx.shadowColor = '#00E5FF';
-            ctx.shadowBlur = 8;
-            ctx.beginPath();
-            ctx.arc(target.x, target.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
-
-            // Draw Rotating HUD Target Outer Ring
-            ctx.save();
-            ctx.translate(target.x, target.y);
-            ctx.rotate(outerRotation);
-            ctx.strokeStyle = ringColor;
-            ctx.lineWidth = 1.5;
-            ctx.shadowColor = ringColor;
-            ctx.shadowBlur = isHovered ? 12 : 6;
-
-            // Outer Dashed Ring
-            ctx.beginPath();
-            ctx.arc(0, 0, size, 0, Math.PI * 2);
-            ctx.setLineDash([6, 6]);
-            ctx.stroke();
-
-            // Corner Crosshair Hairlines
-            ctx.setLineDash([]);
-            const gap = size + 4;
-            const len = 6;
-            ctx.beginPath();
-            // Top Line
-            ctx.moveTo(0, -gap); ctx.lineTo(0, -gap - len);
-            // Bottom Line
-            ctx.moveTo(0, gap); ctx.lineTo(0, gap + len);
-            // Left Line
-            ctx.moveTo(-gap, 0); ctx.lineTo(-gap - len, 0);
-            // Right Line
-            ctx.moveTo(gap, 0); ctx.lineTo(gap + len, 0);
-            ctx.stroke();
-
-            ctx.restore();
-
-            // Render Click Ripples
-            for (let i = ripples.length - 1; i >= 0; i--) {
-                const r = ripples[i];
-                r.radius += 2;
-                r.alpha -= 0.04;
-
-                if (r.alpha <= 0) {
-                    ripples.splice(i, 1);
-                } else {
-                    ctx.save();
-                    ctx.strokeStyle = `rgba(0, 229, 255, ${r.alpha})`;
-                    ctx.lineWidth = 1.5;
-                    ctx.beginPath();
-                    ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-                    ctx.stroke();
-                    ctx.restore();
-                }
-            }
-
-            requestAnimationFrame(renderCursor);
-        }
-
-        const bgCanvas = document.getElementById('bg-canvas');
-        const bgCtx = bgCanvas.getContext('2d');
         let bgParticles = [];
 
-        function initBgParticles() {
-            bgParticles = [];
-            for (let i = 0; i < 60; i++) {
-                bgParticles.push({
-                    x: Math.random() * bgCanvas.width,
-                    y: Math.random() * bgCanvas.height,
-                    size: Math.random() * 1.5 + 0.5,
-                    vx: (Math.random() - 0.5) * 0.3,
-                    vy: (Math.random() - 0.5) * 0.3,
-                    alpha: Math.random() * 0.5 + 0.2
-                });
-            }
-        }
-
-        function renderBgParticles() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            bgCtx.fillStyle = '#00E5FF';
-
-            bgParticles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0) p.x = bgCanvas.width;
-                if (p.x > bgCanvas.width) p.x = 0;
-                if (p.y < 0) p.y = bgCanvas.height;
-                if (p.y > bgCanvas.height) p.y = 0;
-
-                bgCtx.save();
-                bgCtx.globalAlpha = p.alpha;
-                bgCtx.beginPath();
-                bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                bgCtx.fill();
-                bgCtx.restore();
-            });
-
-            requestAnimationFrame(renderBgParticles);
-        }
-
-        const coreCanvas = document.getElementById('core-canvas');
-        const coreCtx = coreCanvas.getContext('2d');
-
-        let coreNodes = [];
         let coreParticles = [];
         let coreAngle = 0;
         let coreSpeed = 1.0;
@@ -1231,7 +1219,40 @@
             { name: 'Canva', color: '#22D3EE' }
         ];
 
+        function resizeCanvas() {
+            if (cursorCanvas) {
+                cursorCanvas.width = window.innerWidth;
+                cursorCanvas.height = window.innerHeight;
+            }
+            if (bgCanvas) {
+                bgCanvas.width = window.innerWidth;
+                bgCanvas.height = window.innerHeight;
+                initBgParticles();
+            }
+            if (coreCanvas && coreCanvas.parentElement) {
+                const rect = coreCanvas.parentElement.getBoundingClientRect();
+                coreCanvas.width = rect.width;
+                coreCanvas.height = rect.height;
+            }
+        }
+
+        function initBgParticles() {
+            if (!bgCanvas) return;
+            bgParticles = [];
+            for (let i = 0; i < 60; i++) {
+                bgParticles.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    size: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
         function initCoreAnimation() {
+            if (!coreCanvas || !coreCanvas.parentElement) return;
             const rect = coreCanvas.parentElement.getBoundingClientRect();
             coreCanvas.width = rect.width;
             coreCanvas.height = rect.height;
@@ -1249,8 +1270,102 @@
             }
         }
 
+        function renderCursor() {
+            if (ctx && cursorCanvas) {
+                ctx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
+
+                target.x += (mouse.x - target.x) * 0.2;
+                target.y += (mouse.y - target.y) * 0.2;
+
+                outerRotation += 0.02;
+
+                const size = isHovered ? 24 : 16;
+                const ringColor = isHovered ? '#FF007F' : '#00E5FF';
+
+                ctx.save();
+                ctx.fillStyle = '#00E5FF';
+                ctx.shadowColor = '#00E5FF';
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(target.x, target.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(target.x, target.y);
+                ctx.rotate(outerRotation);
+                ctx.strokeStyle = ringColor;
+                ctx.lineWidth = 1.5;
+                ctx.shadowColor = ringColor;
+                ctx.shadowBlur = isHovered ? 12 : 6;
+
+                ctx.beginPath();
+                ctx.arc(0, 0, size, 0, Math.PI * 2);
+                ctx.setLineDash([6, 6]);
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+                const gap = size + 4;
+                const len = 6;
+                ctx.beginPath();
+                ctx.moveTo(0, -gap); ctx.lineTo(0, -gap - len);
+                ctx.moveTo(0, gap); ctx.lineTo(0, gap + len);
+                ctx.moveTo(-gap, 0); ctx.lineTo(-gap - len, 0);
+                ctx.moveTo(gap, 0); ctx.lineTo(gap + len, 0);
+                ctx.stroke();
+
+                ctx.restore();
+
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const r = ripples[i];
+                    r.radius += 2;
+                    r.alpha -= 0.04;
+
+                    if (r.alpha <= 0) {
+                        ripples.splice(i, 1);
+                    } else {
+                        ctx.save();
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${r.alpha})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+            }
+
+            requestAnimationFrame(renderCursor);
+        }
+
+        function renderBgParticles() {
+            if (bgCtx && bgCanvas) {
+                bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.fillStyle = '#00E5FF';
+
+                bgParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = bgCanvas.width;
+                    if (p.x > bgCanvas.width) p.x = 0;
+                    if (p.y < 0) p.y = bgCanvas.height;
+                    if (p.y > bgCanvas.height) p.y = 0;
+
+                    bgCtx.save();
+                    bgCtx.globalAlpha = p.alpha;
+                    bgCtx.beginPath();
+                    bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    bgCtx.fill();
+                    bgCtx.restore();
+                });
+            }
+
+            requestAnimationFrame(renderBgParticles);
+        }
+
         function renderCore() {
-            if (currentPage === 5) {
+            if (currentPage === 5 && coreCtx && coreCanvas) {
                 coreCtx.clearRect(0, 0, coreCanvas.width, coreCanvas.height);
                 const centerX = coreCanvas.width / 2;
                 const centerY = coreCanvas.height / 2;
@@ -1259,7 +1374,6 @@
                 coreAngle += 0.01 * coreSpeed;
                 if (pulseEnergy > 0) pulseEnergy -= 0.02;
 
-                // Render Background Floating Neural Particles
                 coreParticles.forEach(p => {
                     p.x += p.vx * coreSpeed;
                     p.y += p.vy * coreSpeed;
@@ -1276,7 +1390,6 @@
                     coreCtx.restore();
                 });
 
-                // Calculate 5 Tool Node Positions in Rotating Pentagon Orbit
                 const toolPositions = [];
                 for (let i = 0; i < 5; i++) {
                     const angle = coreAngle + (i * (Math.PI * 2 / 5));
@@ -1285,9 +1398,7 @@
                     toolPositions.push({ x, y, data: toolNodesData[i] });
                 }
 
-                // Draw Connecting Laser Beams to Center Hub & Between Nodes
                 toolPositions.forEach((node, i) => {
-                    // Center Laser Link
                     coreCtx.save();
                     coreCtx.strokeStyle = node.data.color;
                     coreCtx.lineWidth = 1.5 + pulseEnergy * 2;
@@ -1300,7 +1411,6 @@
                     coreCtx.stroke();
                     coreCtx.restore();
 
-                    // Connect to Next Orbit Node
                     const nextNode = toolPositions[(i + 1) % 5];
                     coreCtx.save();
                     coreCtx.strokeStyle = node.data.color;
@@ -1313,7 +1423,6 @@
                     coreCtx.restore();
                 });
 
-                // Draw Central Cyber Reactor Core
                 coreCtx.save();
                 coreCtx.fillStyle = '#080B10';
                 coreCtx.strokeStyle = '#00E5FF';
@@ -1332,7 +1441,6 @@
                 coreCtx.fillText('NEXUS', centerX, centerY);
                 coreCtx.restore();
 
-                // Draw Tool Outer Nodes
                 toolPositions.forEach(node => {
                     coreCtx.save();
                     coreCtx.fillStyle = '#0D1117';
@@ -1357,42 +1465,24 @@
             requestAnimationFrame(renderCore);
         }
 
-        function changeCoreSpeed() {
+        window.changeCoreSpeed = function() {
             if (coreSpeed === 1.0) coreSpeed = 2.0;
             else if (coreSpeed === 2.0) coreSpeed = 0.5;
             else coreSpeed = 1.0;
-            document.getElementById('speed-label').textContent = `${coreSpeed.toFixed(1)}x`;
+            const label = document.getElementById('speed-label');
+            if (label) label.textContent = `${coreSpeed.toFixed(1)}x`;
             playCyberSound(700, 'sine', 0.05);
-        }
+        };
 
-        function triggerCorePulse() {
+        window.triggerCorePulse = function() {
             pulseEnergy = 1.5;
             playCyberSound(300, 'sawtooth', 0.15);
-        }
-
-        document.querySelectorAll('.tilt-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10;
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-            });
-        });
+        };
 
         let audioEnabled = false;
         let audioCtx = null;
 
-        function toggleAudio() {
+        window.toggleAudio = function() {
             audioEnabled = !audioEnabled;
             const icon = document.getElementById('sound-icon');
             const btn = document.getElementById('sound-btn');
@@ -1401,14 +1491,14 @@
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                icon.className = 'fa-solid fa-volume-high text-cyber-cyan';
-                btn.querySelector('span').textContent = 'AUDIO: ON';
+                if (icon) icon.className = 'fa-solid fa-volume-high text-cyber-cyan';
+                if (btn && btn.querySelector('span')) btn.querySelector('span').textContent = 'AUDIO: ON';
                 playCyberSound(880, 'sine', 0.1);
             } else {
-                icon.className = 'fa-solid fa-volume-xmark';
-                btn.querySelector('span').textContent = 'AUDIO: OFF';
+                if (icon) icon.className = 'fa-solid fa-volume-xmark';
+                if (btn && btn.querySelector('span')) btn.querySelector('span').textContent = 'AUDIO: OFF';
             }
-        }
+        };
 
         function playCyberSound(freq, type = 'sine', duration = 0.05) {
             if (!audioEnabled || !audioCtx) return;
@@ -1429,15 +1519,74 @@
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
             } catch (e) {
-                // Audio Context fallback safeguard
+                // Audio Context fallback
             }
         }
 
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') window.nextPage();
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') window.prevPage();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mousedown', (e) => {
+            ripples.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 5,
+                maxRadius: 40,
+                alpha: 1
+            });
+            playCyberSound(800, 'triangle', 0.08);
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, select, input, .tilt-card, .nav-btn')) {
+                if (!isHovered) playCyberSound(600, 'sine', 0.03);
+                isHovered = true;
+            } else {
+                isHovered = false;
+            }
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
         window.onload = function () {
+            cursorCanvas = document.getElementById('cursor-canvas');
+            if (cursorCanvas) ctx = cursorCanvas.getContext('2d');
+
+            bgCanvas = document.getElementById('bg-canvas');
+            if (bgCanvas) bgCtx = bgCanvas.getContext('2d');
+
+            coreCanvas = document.getElementById('core-canvas');
+            if (coreCanvas) coreCtx = coreCanvas.getContext('2d');
+
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -10;
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                });
+            });
+
             resizeCanvas();
             initCoreAnimation();
 
-            // Start Main Animation Loops
             renderCursor();
             renderBgParticles();
             renderCore();
